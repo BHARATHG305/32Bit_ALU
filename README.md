@@ -34,7 +34,43 @@ A Blank Document opens up into which the following source code can be typed down
 
 ## Source Code – Using Case Statement :
 
-(Include program here)
+module alu_32bit_case(y,a,b,f);
+
+input [31:0]a;
+
+input [31:0]b;
+
+input [2:0]f;
+
+output reg [31:0]y;
+
+always@(*)
+
+begin
+
+case(f)
+
+3'b000:y=a&b; //AND Operation
+
+3'b001:y=a|b; //OR Operation
+
+3'b010:y=~(a&b); //NAND Operation
+
+3'b011:y=~(a|b); //NOR Operation
+
+3'b100:y=a^b; //XOR Operation
+
+3'b101:y=~(a^b); //XNOR Operation
+
+3'b110:y=~a; //NOT of a
+
+3'b111:y=~b; //NOT of b
+
+endcase
+
+end
+
+endmodule
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -44,7 +80,48 @@ Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.v
 
 ## Test Bench :
 
-(Include test bench program here)
+module alu_32bit_tb_case;
+
+reg [31:0]a;
+
+reg [31:0]b;
+
+reg [2:0]f;
+
+wire [31:0]y;
+
+alu_32bit_case test2(.y(y),.a(a),.b(b),.f(f));
+
+initial
+
+begin
+
+a=32'h00000000;
+
+b=32'h10101010;
+
+#10 f=3'b000;
+
+#10 f=3'b001;
+
+#10 f=3'b010;
+
+#10 f=3'b011;
+
+#10 f=3'b100;
+
+#10 f=3'b101;
+
+#10 f=3'b110;
+
+#10 f=3'b111;
+
+#50 $finish;
+
+end
+
+endmodule
+
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -61,6 +138,7 @@ source /cadence/install/cshrc (mention the path of the tools)
 After this you can see the window like below 
 
 ### Fig 2: Invoke the Cadence Environment
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (26)](https://github.com/user-attachments/assets/fa90474d-d005-40e6-a9b4-71ffa01f9ebe)
 
 To Launch Simulation tool 
 
@@ -74,12 +152,14 @@ or
 It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .
 
 ### Fig 3: Setting Multi-step simulation
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (25)](https://github.com/user-attachments/assets/ed148681-c979-4517-b546-1bec9feb65f2)
 
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure 
 
 Click the cds.lib file and save the file by clicking on Save option 
 
 ### Fig 4:cds.lib file Creation
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (12)](https://github.com/user-attachments/assets/ad7bd0f5-818b-4663-81f4-ac4e45c07b90)
 
 Save cds.lib file and select the correct option for cds.lib file format based on the HDL Language and Libraries used. 
 
@@ -93,6 +173,8 @@ A Click “OK” in the “nclaunch: Open Design Directory” window as shown in
 
 ### Fig 5: Selection of Don’t include any libraries
 
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (13)](https://github.com/user-attachments/assets/98d27720-06bc-4c06-a81d-7d4c69a6fc7f)
+
 A ‘NCLaunch window’ appears as shown in figure below
 
 Left side you can see the HDL files. Right side of the window has worklib and snapshots directories listed. 
@@ -103,7 +185,11 @@ To perform the function simulation, the following three steps are involved Compi
 
 ### Fig 6: Nclaunch Window
 
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (15)](https://github.com/user-attachments/assets/45e798a1-14c8-4201-86d6-dca5718311f0)
+
 ## Step 1: Compilation:
+
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (16)](https://github.com/user-attachments/assets/98b1672a-d32d-4d16-b874-c80ab7e12e4a)
 
 – Process to check the correct Verilog language syntax and usage 
 
@@ -126,6 +212,8 @@ Left side select the file and in Tools : launch verilog compiler with current se
 Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation 
 
 ### Fig 7: Compiled database in worklib
+
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (16)](https://github.com/user-attachments/assets/b49bb826-cbf2-4683-9720-d2cdb4eabf35)
 
 After compilation it will come under worklib you can see in right side window
 
@@ -161,6 +249,8 @@ After elaboration the file will come under snapshot. Select the test bench and s
 
 ## Fig 8: Elaboration Launch Option
 
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (17)](https://github.com/user-attachments/assets/67782e81-6c22-49ef-bdbf-37343a279cc6)
+
 ## Step 3: Simulation: 
 
 – Simulate with the given test vectors over a period of time to observe the output behaviour. 
@@ -175,9 +265,15 @@ Steps for simulation – Run the simulation command with simulator options
 
 ## Fig 9: Design Browser window for simulation
 
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (18)](https://github.com/user-attachments/assets/5f4a365f-8961-4631-b702-d0f3fb319b40)
+
 ## Fig 10:Simulation Waveform Window
 
+![WhatsApp Image 2025-05-16 at 5 47 41 PM (19)](https://github.com/user-attachments/assets/ccb9b743-9839-4a09-a5b9-3ab221fdd3b4)
+
 ## Fig 11:Simulation Waveform Window
+
+![WhatsApp Image 2025-05-16 at 5 47 40 PM](https://github.com/user-attachments/assets/2d7ac3da-c20a-47e5-ac9f-3e8e483339f7)
 
 ### Result
 
